@@ -1,3 +1,6 @@
+//Project one js testing arena. Update comments as you go to make it easier to follow
+
+
 //lets create some variables
 var savedLocations = ["Winter Park", "Vail", "Copper", "A-Basin"];
 // lets make some functions
@@ -24,6 +27,18 @@ function localPull () {
         savedLocations = pulledStorage.split(",");
     }
 }
+
+//This function will add a new location to the list of savedLocations.
+//Will need other function call outs added to this function later to 
+//populate the html with the info we want, for this stage this is good. 
+function newLocation () {
+    var siblingAry = $(this).siblings();
+    var newLocation = siblingAry[0].value;
+    savedLocations.push(newLocation);
+    console.log(savedLocations);
+}
+
+//This function will push the savedLocations array to local storage
 
 //Function call outs for testing
 localPull();
