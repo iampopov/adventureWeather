@@ -28,3 +28,8 @@ function localPull () {
 //Function call outs for testing
 localPull();
 dropPop();
+
+//Creating on click events
+
+//This is the click event for the add new location button
+$("#newLocation").on("click", "button", newLocation);
