@@ -14,5 +14,17 @@ function dropPop () {
     })
 }
 
+//This function will be used to pull from local Storage savedLocations array
+function localPull () {
+    var pulledStorage = localStorage.getItem("Location-Array");
+    console.log(pulledStorage);
+    if (pulledStorage === null) {
+        savedLocations = [];
+    } else {
+        savedLocations = pulledStorage.split(",");
+    }
+}
+
 //Function call outs for testing
+localPull();
 dropPop();
