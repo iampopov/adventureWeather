@@ -3,6 +3,7 @@
 
 //lets create some variables
 var savedLocations = ["Winter Park", "Vail", "Copper", "A-Basin"];
+
 // lets make some functions
 
 //This function takes location array and uses it to populate the dropdown
@@ -36,15 +37,28 @@ function newLocation () {
     var newLocation = siblingAry[0].value;
     savedLocations.push(newLocation);
     console.log(savedLocations);
+    siblingAry[0].value = "";
+    localPush();
 }
 
 //This function will push the savedLocations array to local storage
+function localPush () {
+    var savedLocationsString = savedLocations.toString();
+    localStorage.setItem("Location-Array", savedLocationsString);
+}
+
+//This function will make the ajax callout to pull information from darksky
+function pullDarksky () {
+
+}
 
 //Function call outs for testing
-localPull();
+localPull(); 
 dropPop();
 
 //Creating on click events
 
 //This is the click event for the add new location button
 $("#newLocation").on("click", "button", newLocation);
+
+//This section is for tempoary code tests delete when section is working
