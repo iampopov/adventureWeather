@@ -39,6 +39,7 @@ function localPull () {
 //This function will add a new location to the list of savedLocations.
 //Will need other function call outs added to this function later to 
 //populate the html with the info we want, for this stage this is good. 
+//this will need changed to work with the buttons created for the search
 function newLocation () {
     var siblingAry = $(this).siblings();
     var newLocation = siblingAry[0].value;
@@ -79,3 +80,5 @@ dropPop();
 $("#newLocation").on("click", "button", newLocation);
 
 //This section is for tempoary code tests delete when section is working
+
+//IDs needed newLocation for the button 
