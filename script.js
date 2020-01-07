@@ -3,8 +3,13 @@
 
 
 //lets create some variables
+//These variables will last testing
 var savedLocations = ["Winter Park", "Vail", "Copper", "A-Basin"];
 var darkskyApiKey = "d2f367ae26a429b81b3e3148169f1332";
+
+//These variables may or may not last testing
+var latCurrent = 39.8868;
+var lonCurrent = -105.7625;
 
 // lets make some functions
 
@@ -42,6 +47,7 @@ function newLocation () {
     siblingAry[0].value = "";
     localPush();
     dropPop();
+    // pullDarksky();
 }
 
 //This function will push the savedLocations array to local storage
@@ -52,12 +58,20 @@ function localPush () {
 
 //This function will make the ajax callout to pull information from darksky
 function pullDarksky () {
-
+    var proxy = "https://cors-anywhere.herokuapp.com/";
+    var queryURL = "https://api.darksky.net/forecast/" + darkskyApiKey + "/" + latCurrent + "," + lonCurrent;
+    $.ajax({
+        url: proxy + queryURL,
+        method: "GET"
+    }).then(function(response){
+        console.log(response);
+    })
 }
 
 //Function call outs for testing
 localPull(); 
 dropPop();
+
 
 //Creating on click events
 
@@ -65,3 +79,4 @@ dropPop();
 $("#newLocation").on("click", "button", newLocation);
 
 //This section is for tempoary code tests delete when section is working
+pullDarksky();
