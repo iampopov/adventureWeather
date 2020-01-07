@@ -14,13 +14,13 @@
   margin-right: 20px;
   font-family: 'Oswald', sans-serif;
 }
-input[type="text"]{
+#inputBox[type="text"]{
   height: 25px;
   border-radius: 4px;
   font-family: 'Oswald', sans-serif;
   border-color: #76323F;
 }
-button{
+#searchButton{
   height: 30px;
   background-color:#76323F;
   border-radius: 4px;
