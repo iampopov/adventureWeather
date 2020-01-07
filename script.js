@@ -13,6 +13,11 @@ var cityArr = [];
 var latArr =[];
 var lonArr = [];
 var mainDiv = $('#mainDiv');
+var snowfall24 = 1;
+var snowfall48 = 5;
+var snowfall72 = 7;
+var currentTemp = 0;
+var currentFeelsLikeTemp = 0;
 
 //location and search buttons
 
@@ -57,6 +62,16 @@ mainPop();
 //function to populate main div 
 function mainPop (){
     $("#mainDiv").empty();
+    var snowfallDiv = $("<div>").attr({
+        "class":"snowfall"
+    })
+    var tempDiv = $("<div>").attr({
+        "class":"temp"
+    })
+    tempDiv.text(`Current Temp: ${currentTemp} F  Feels Like: ${currentFeelsLikeTemp} F`)
+    snowfallDiv.text(`Snowfall: Past 24 hours: ${snowfall24}" Past 48 hours: ${snowfall48}" Past 72 hours: ${snowfall72}"`);
+    $("#mainDiv").append(snowfallDiv, tempDiv);
+    
 
 }
 
