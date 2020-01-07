@@ -16,24 +16,25 @@
 <body>
   <div class="header" id="header">
         <h1>Adventure Weather</h1>
-        
-        <div class="two-thirds column" id="mainDiv">
-' '
-        </div>
-        <div class="one-third column">
-        <form>
+        <div class="container" id="container">
 
-            <div class="searchBar">
-                <h2>Search Mountain</h2>
-                <form action="/action_page.php">
-                    <input type="text" id="inputBox" placeholder="Search.." name="search">
-                    <button type="search" id="searchButton">Search</button>
-
+            <div class="two-thirds column" id="mainDiv">
+                ' '
+            </div>
+            <div class="one-third column">
+                <form>
+                    
+                    <div class="searchBar">
+                        <h2 id="mountainSearch">Search Mountain</h2>
+                        <form action="/action_page.php">
+                            <input type="text" id="inputBox" placeholder="Search.." name="search">
+                            <input id="searchButton" class="button-primary" type="button" value="Search">
+                        </form>
+                    </div>
                 </form>
             </div>
-        </form>
+            
         </div>
-        
 
     <script src="script.js"></script>
 </body>
