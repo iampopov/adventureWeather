@@ -32,7 +32,7 @@ function getLocation(e) {
     }).then(function(response) {
       mainDiv.html(" ");
       for (i=0; i<response.length; i++) {
-       
+       var locBtnDiv = $('<div>')
         var queryResult = $('<button/>',
         {
           id: 'locationBtn',
@@ -44,6 +44,7 @@ function getLocation(e) {
        latArr.push(response[i].lat);
        lonArr.push(response[i].lon);
         queryResult.appendTo(mainDiv);
+        locBtnDiv.appendTo(mainDiv);
       }
     })
   }
@@ -57,6 +58,10 @@ mainPop();
 //function to populate main div 
 function mainPop (){
     $("#mainDiv").empty();
+
+}
+
+function renderSavedCities () {
 
 }
 
