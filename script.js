@@ -6,13 +6,57 @@
 //These variables will last testing
 var savedLocations = ["Winter Park", "Vail", "Copper", "A-Basin"];
 var darkskyApiKey = "d2f367ae26a429b81b3e3148169f1332";
-
-//These variables may or may not last testing
-var latCurrent = 39.8868;
-var lonCurrent = -105.7625;
 var day3;
 
+//These variables may or may not last testing
+var latCurrent = '';
+var lonCurrent = '';
+var mainDiv = $('#mainDiv');
+
+
+//location and search buttons
+
 // lets make some functions
+
+//get location
+function getLocation(e) {
+    e.preventDefault();
+    var queryToken = `560c631ddab209`;
+    var queryLoc = $('#inputBox').val().trim();
+    var queryURL = `https://us1.locationiq.com/v1/search.php?key=${queryToken}&q=${queryLoc}&format=json`
+    console.log($('#inputBox').val());
+    console.log(queryURL);
+    $.ajax({
+      url: queryURL,
+      method: 'GET'
+    }).then(function(response) {
+      mainDiv.html(" ");
+      for (i=0; i<response.length; i++) {
+        console.log(response[i].display_name);
+        console.log(response[i]);
+        console.log(response[i].lat);
+        console.log(response[i].lon);
+        var queryResult = $('<button/>',
+        {
+          id: 'locationBtn',
+          text: response[i].display_name,
+          latCurrent: response[i].lat,
+          lonCurrent: response[i].lon
+        }
+        )
+        //.value(response[i].display_name);
+        //.lat(response[i].lat).lon(response[i].lon);
+        queryResult.appendTo(mainDiv);
+      }
+      searchConfirm(latCurrent, lonCurrent);
+    })
+  
+  }
+
+  function searchConfirm (latCurrent, lonCurrent) {
+      console.log($(this).latCurrent);
+  }
+
 
 //This function takes location array and uses it to populate the dropdown 
 //this needs changed to create buttons for city options
@@ -75,6 +119,7 @@ function pullDarksky () {
 }
 
 //This function will make the ajax call to pull historical infor for the location
+<<<<<<< HEAD
 function pullDarkskyPast () {
     var proxy = "https://cors-anywhere.herokuapp.com/";
     var queryURL = "https://api.darksky.net/forecast/" + darkskyApiKey + "/" + latCurrent + "," + lonCurrent + "," + day3;
@@ -84,8 +129,13 @@ function pullDarkskyPast () {
     }).then(function(response){
         console.log(response);
     })
+=======
+// function pullDarkskyPast () {
+//     var proxy = "https://cors-anywhere.herokuapp.com/";
+//     var queryURL = 
+>>>>>>> df676444794c625bff79bcd21af30ed4a4a0b128
 
-}
+// }
 
 //Function call outs for testing
 localPull(); 
@@ -97,7 +147,10 @@ pullDarksky();
 
 //This is the click event for the add new location button
 $("#newLocation").on("click", "button", newLocation);
-
+//on click of search shows search buttons
+$('#searchButton').click(getLocation);
+//on click of search buttons pushes lat & lon to dark weather
+$('#mainDiv').on('click', '#locationBtn', searchConfirm);
 //This section is for tempoary code tests delete when section is working
 
 //IDs needed newLocation for the button 
