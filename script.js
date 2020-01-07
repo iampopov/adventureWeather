@@ -47,7 +47,7 @@ function newLocation () {
     siblingAry[0].value = "";
     localPush();
     dropPop();
-    // pullDarksky();
+    pullDarksky();
 }
 
 //This function will push the savedLocations array to local storage
@@ -79,4 +79,3 @@ dropPop();
 $("#newLocation").on("click", "button", newLocation);
 
 //This section is for tempoary code tests delete when section is working
-pullDarksky();
