@@ -32,7 +32,7 @@ function getLocation(e) {
     }).then(function(response) {
       mainDiv.html(" ");
       for (i=0; i<response.length; i++) {
-       
+       var locBtnDiv = $('<div>')
         var queryResult = $('<button/>',
         {
           id: 'locationBtn',
@@ -44,6 +44,7 @@ function getLocation(e) {
        latArr.push(response[i].lat);
        lonArr.push(response[i].lon);
         queryResult.appendTo(mainDiv);
+        locBtnDiv.appendTo(mainDiv);
       }
     })
   }
@@ -51,6 +52,10 @@ function getLocation(e) {
 function updateStorage () {
 coordinatesArr = [latArr[$(this).val()], lonArr[$(this).val()]];
 localStorage.setItem(cityArr[$(this).val()], JSON.stringify(coordinatesArr));
+}
+
+function renderSavedCities () {
+
 }
 
 //This function takes location array and uses it to populate the dropdown 
