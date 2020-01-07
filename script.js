@@ -8,15 +8,22 @@ var savedLocations = ["Winter Park", "Vail", "Copper", "A-Basin"];
 var darkskyApiKey = "d2f367ae26a429b81b3e3148169f1332";
 
 //These variables may or may not last testing
-var latCurrent = '';
-var lonCurrent = '';
+
+var cityArr = [];
+var latArr =[];
+var lonArr = [];
 var mainDiv = $('#mainDiv');
+var snowfall24 = 1;
+var snowfall48 = 5;
+var snowfall72 = 7;
+var currentTemp = 0;
+var currentFeelsLikeTemp = 0;
 
 //location and search buttons
 
 // lets make some functions
 
-//get location
+//get location - shows search results and assigns the key and the lat/lon pair to store in local storage
 function getLocation(e) {
     e.preventDefault();
     var queryToken = `560c631ddab209`;
@@ -30,31 +37,51 @@ function getLocation(e) {
     }).then(function(response) {
       mainDiv.html(" ");
       for (i=0; i<response.length; i++) {
-        console.log(response[i].display_name);
-        console.log(response[i]);
-        console.log(response[i].lat);
-        console.log(response[i].lon);
+    
         var queryResult = $('<button/>',
         {
           id: 'locationBtn',
           text: response[i].display_name,
-          latCurrent: response[i].lat,
-          lonCurrent: response[i].lon
+          value: i
         }
-        )
-        //.value(response[i].display_name);
-        //.lat(response[i].lat).lon(response[i].lon);
+        ).css({
+            'width': '100%',
+            'white-space': 'normal',
+            'height': 'auto'
+           })
+       cityArr.push(response[i].display_name);
+       latArr.push(response[i].lat);
+       lonArr.push(response[i].lon);
         queryResult.appendTo(mainDiv);
       }
-      searchConfirm(latCurrent, lonCurrent);
     })
-  
   }
+// saving clicked search results to local storage
+function updateStorage () {
+coordinatesArr = [latArr[$(this).val()], lonArr[$(this).val()]];
+localStorage.setItem(cityArr[$(this).val()], JSON.stringify(coordinatesArr));
+mainPop();
+}
 
-  function searchConfirm (latCurrent, lonCurrent) {
-      console.log($(this).latCurrent);
-  }
+//function to populate main div 
+function mainPop (){
+    $("#mainDiv").empty();
+    var snowfallDiv = $("<div>").attr({
+        "class":"snowfall"
+    })
+    var tempDiv = $("<div>").attr({
+        "class":"temp"
+    })
+    tempDiv.text(`Current Temp: ${currentTemp} F  Feels Like: ${currentFeelsLikeTemp} F`)
+    snowfallDiv.text(`Snowfall: Past 24 hours: ${snowfall24}" Past 48 hours: ${snowfall48}" Past 72 hours: ${snowfall72}"`);
+    $("#mainDiv").append(snowfallDiv, tempDiv);
+    
 
+}
+
+function renderSavedCities () {
+
+}
 
 //This function takes location array and uses it to populate the dropdown 
 //this needs changed to create buttons for city options
@@ -132,7 +159,7 @@ $("#newLocation").on("click", "button", newLocation);
 //on click of search shows search buttons
 $('#searchButton').click(getLocation);
 //on click of search buttons pushes lat & lon to dark weather
-$('#mainDiv').on('click', '#locationBtn', searchConfirm);
+$('#mainDiv').on('click', '#locationBtn', updateStorage);
 //This section is for tempoary code tests delete when section is working
 
 //IDs needed newLocation for the button 
