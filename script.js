@@ -32,19 +32,22 @@ function getLocation(e) {
     }).then(function(response) {
       mainDiv.html(" ");
       for (i=0; i<response.length; i++) {
-       var locBtnDiv = $('<div>')
+    
         var queryResult = $('<button/>',
         {
           id: 'locationBtn',
           text: response[i].display_name,
           value: i
         }
-        )
+        ).css({
+            'width': '100%',
+            'white-space': 'normal',
+            'height': 'auto'
+           })
        cityArr.push(response[i].display_name);
        latArr.push(response[i].lat);
        lonArr.push(response[i].lon);
         queryResult.appendTo(mainDiv);
-        locBtnDiv.appendTo(mainDiv);
       }
     })
   }
