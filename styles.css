@@ -33,3 +33,8 @@ h2{
   margin-top: 30px;
   margin-bottom: -3px;
 }
+body {
+  background-image: url(./images/snow.jpg);
+  background-size: cover;
+  background-position: center top;
+}
