@@ -13,19 +13,20 @@ var lonCurrent = -105.7625;
 
 // lets make some functions
 
-//This function takes location array and uses it to populate the dropdown
+//This function takes location array and uses it to populate the dropdown 
+//this needs changed to create buttons for city options
 function dropPop () {
     var dropDownMenu = $(".dropPop");
     dropDownMenu.empty();
     savedLocations.forEach(function (item) {
-        var newButton = $("<button>").attr({"class":"dropdown-item", "data-value": item});
+        var newButton = $("<button>").attr({"data-value": item});
         newButton.text(item);
         dropDownMenu.append(newButton);
         
     })
 }
 
-//This function will be used to pull from local Storage savedLocations array
+//This function will be used to pull from local Storage savedLocations array going to need changed to get objects
 function localPull () {
     var pulledStorage = localStorage.getItem("Location-Array");
     console.log(pulledStorage);
@@ -51,7 +52,7 @@ function newLocation () {
     pullDarksky();
 }
 
-//This function will push the savedLocations array to local storage
+//This function will push the savedLocations array to local storage will need changed for objects
 function localPush () {
     var savedLocationsString = savedLocations.toString();
     localStorage.setItem("Location-Array", savedLocationsString);
@@ -67,6 +68,13 @@ function pullDarksky () {
     }).then(function(response){
         console.log(response);
     })
+}
+
+//This function will make the ajax call to pull historical infor for the location
+function pullDarkskyPast () {
+    var proxy = "https://cors-anywhere.herokuapp.com/";
+    var queryURL = 
+
 }
 
 //Function call outs for testing
