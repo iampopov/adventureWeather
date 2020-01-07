@@ -119,7 +119,6 @@ function pullDarksky () {
 }
 
 //This function will make the ajax call to pull historical infor for the location
-<<<<<<< HEAD
 function pullDarkskyPast () {
     var proxy = "https://cors-anywhere.herokuapp.com/";
     var queryURL = "https://api.darksky.net/forecast/" + darkskyApiKey + "/" + latCurrent + "," + lonCurrent + "," + day3;
@@ -129,11 +128,6 @@ function pullDarkskyPast () {
     }).then(function(response){
         console.log(response);
     })
-=======
-// function pullDarkskyPast () {
-//     var proxy = "https://cors-anywhere.herokuapp.com/";
-//     var queryURL = 
->>>>>>> df676444794c625bff79bcd21af30ed4a4a0b128
 
 // }
 
