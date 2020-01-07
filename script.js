@@ -10,6 +10,7 @@ var darkskyApiKey = "d2f367ae26a429b81b3e3148169f1332";
 //These variables may or may not last testing
 var latCurrent = 39.8868;
 var lonCurrent = -105.7625;
+var day3;
 
 // lets make some functions
 
@@ -66,20 +67,30 @@ function pullDarksky () {
         url: proxy + queryURL,
         method: "GET"
     }).then(function(response){
-        console.log(response);
+        // console.log(response);
+        day3 = response.currently.time;
+        console.log(day3);
+        pullDarkskyPast();
     })
 }
 
 //This function will make the ajax call to pull historical infor for the location
 function pullDarkskyPast () {
     var proxy = "https://cors-anywhere.herokuapp.com/";
-    var queryURL = 
+    var queryURL = "https://api.darksky.net/forecast/" + darkskyApiKey + "/" + latCurrent + "," + lonCurrent + "," + day3;
+    $.ajax({
+        url: proxy + queryURL,
+        method: "GET"
+    }).then(function(response){
+        console.log(response);
+    })
 
 }
 
 //Function call outs for testing
 localPull(); 
 dropPop();
+pullDarksky();
 
 
 //Creating on click events
