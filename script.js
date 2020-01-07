@@ -1,8 +1,10 @@
 //Project one js testing arena. Update comments as you go to make it easier to follow
+//or remove if needed.
 
 
 //lets create some variables
 var savedLocations = ["Winter Park", "Vail", "Copper", "A-Basin"];
+var darkskyApiKey = "d2f367ae26a429b81b3e3148169f1332";
 
 // lets make some functions
 
@@ -39,6 +41,7 @@ function newLocation () {
     console.log(savedLocations);
     siblingAry[0].value = "";
     localPush();
+    dropPop();
 }
 
 //This function will push the savedLocations array to local storage
