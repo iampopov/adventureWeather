@@ -80,8 +80,27 @@ function mainPop (){
 }
 
 function renderSavedCities () {
+var savedLocations = $('<div>');
 
+for (i=0; i<localStorage.length; i++) {
+    var currentArr = JSON.parse(localStorage.getItem(localStorage.key(i)));
+    
+    var renderedLocation = $('<button/>',
+    {
+      id: 'locationBtn',
+      text: localStorage.key(i),
+      value: i
+    }
+    ).css({
+        'width': '100%',
+        'white-space': 'normal',
+        'height': 'auto'
+    })
+    renderedLocation.appendTo(savedLocations);
 }
+savedLocations.appendTo('#sideDiv');
+}
+renderSavedCities();
 
 //This function takes location array and uses it to populate the dropdown 
 //this needs changed to create buttons for city options
