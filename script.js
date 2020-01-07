@@ -52,6 +52,13 @@ function getLocation(e) {
 function updateStorage () {
 coordinatesArr = [latArr[$(this).val()], lonArr[$(this).val()]];
 localStorage.setItem(cityArr[$(this).val()], JSON.stringify(coordinatesArr));
+mainPop();
+}
+
+//function to populate main div 
+function mainPop (){
+    $("#mainDiv").empty();
+
 }
 
 function renderSavedCities () {
