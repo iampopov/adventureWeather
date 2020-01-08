@@ -238,12 +238,6 @@ function pop5Day () {
         var cardDiv = $("<div>").attr({
             "class":"cardDiv"
         })
-        cardDiv.css({
-            "width":"20%",
-            "background":"white",
-            "padding":"2%",
-            "border-radius":"5px",
-        })
         var temp = $("<p>").attr({
             "class":"temp"
         })
