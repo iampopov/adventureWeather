@@ -6,6 +6,7 @@
 //These variables will last testing
 var savedLocations = ["Winter Park", "Vail", "Copper", "A-Basin"];
 var darkskyApiKey = "d2f367ae26a429b81b3e3148169f1332";
+var openWeatherApiKey = "9bd07f7d4ce4fe8a1ea716aadf106115";
 
 //These variables may or may not last testing
 
@@ -21,6 +22,8 @@ var latCurrent = 39.8868;
 var lonCurrent = -105.7625;
 var precipAccAry = ["","",""];
 var currentWind = 0;
+var temp5day = [];
+var date5day = [];
 
 //location and search buttons
 
@@ -67,17 +70,13 @@ function updateStorage() {
     latCurrent = latArr[$(this).val()];
     lonCurrent = lonArr[$(this).val()];
     pullDarksky();
+
     // mainPop();
 }
 
 //function to populate main div 
 function mainPop() {
     $("#mainDiv").empty();
-    $("#mainDiv").css({
-        "background":"white",
-        "border-radius":"5px",
-        "padding":"30px"
-    });
     var snowfallDiv = $("<div>").attr({
         "class": "snowfall"
     })
@@ -95,19 +94,6 @@ function mainPop() {
 
 }
 
-<<<<<<< HEAD
-function renderSavedCities () {
-var savedLocations = $('<div>');
-
-for (i=0; i<localStorage.length; i++) {
-    // var currentArr = JSON.parse(localStorage.getItem(localStorage.key(i)));
-    
-    var renderedLocation = $('<button/>',
-    {
-      id: 'locationBtn',
-      text: localStorage.key(i),
-      value: i
-=======
 function renderSavedCities() {
     var savedLocations = $('<div>');
 
@@ -126,7 +112,6 @@ function renderSavedCities() {
             'height': 'auto'
         })
         renderedLocation.appendTo(savedLocations);
->>>>>>> 42187e3d7a28498c271da56849982a834dd72b5b
     }
     savedLocations.appendTo('#sideDiv');
 }
@@ -148,7 +133,6 @@ function dropPop() {
 //This function will be used to pull from local Storage savedLocations array going to need changed to get objects
 function localPull() {
     var pulledStorage = localStorage.getItem("Location-Array");
-    console.log(pulledStorage);
     if (pulledStorage === null) {
         savedLocations = [];
     } else {
@@ -164,7 +148,6 @@ function newLocation() {
     var siblingAry = $(this).siblings();
     var newLocation = siblingAry[0].value;
     savedLocations.push(newLocation);
-    console.log(savedLocations);
     siblingAry[0].value = "";
     localPush();
     dropPop();
@@ -185,7 +168,6 @@ function pullDarksky() {
         url: proxy + queryURL,
         method: "GET"
     }).then(function (response) {
-        console.log(response);
         day = response.currently.time;
         for (var i = 0; i < 3; i++) {
             dayAry[i] = day - ((i + 1) * 86400);
@@ -193,9 +175,9 @@ function pullDarksky() {
         currentTemp = response.currently.temperature;
         currentFeelsLikeTemp = response.currently.apparentTemperature;
         currentWind = response.currently.windSpeed;
-        console.log(day);
-        console.log(day - dayAry[2]);
         pullDarkskyPast();
+        fiveDayPull();
+
     })
 }
 
@@ -210,23 +192,72 @@ function pullDarkskyPast() {
             url: proxy + queryURL,
             method: "GET"
         }).then(function (response) {
-            console.log(response);
-            console.log(response.daily.data[0].precipType);
             if (response.daily.data[0].precipType === "snow") {
                 precipAccAry[i] = response.daily.data[0].precipAccumulation;
             } else {
                 precipAccAry[i] = 0;
             }
-            console.log(precipAccAry[i]);
-            console.log(precipAccAry);
-            console.log(i);
             i++;
-            mainPop();
+            
+            // mainPop();
+
         })
     })
 
+
 }
 
+//this function will make an ajax call to open weather for a 5 day forcast
+function fiveDayPull () {
+    var queryURL3 = `http://api.openweathermap.org/data/2.5/forecast?lat=${latCurrent}&lon=${lonCurrent}&appid=${openWeatherApiKey}`;
+    $.ajax({
+        url: queryURL3,
+        method: "GET"
+    }).then(function(response){
+        for (var i = 0; i < 5; i++){
+            temp5day[i] =(((response.list[4+(i*8)].main.temp) - 273.15) * 9 / 5 + 32).toFixed(2);
+            var dateTemp = response.list[4+(i*8)].dt_txt;
+            dateTemp = dateTemp.split(" ");
+            date5day[i] = dateTemp[0];
+        }
+        // pop5Day();
+        // console.log(temp5day);
+        mainPop();
+        pop5Day();
+    })
+}
+
+//this function populates the 5 day forecast to the page
+function pop5Day () {
+    var fiveDay = $(".fiveDay");
+    fiveDay.empty();
+    for (var i = 0; i < 5; i++){
+        var cardDiv = $("<div>").attr({
+            "class":"cardDiv"
+        })
+        cardDiv.css({
+            "width":"20%",
+            "background":"white",
+            "padding":"2%",
+            "border-radius":"5px",
+
+
+        })
+        var temp = $("<p>").attr({
+            "class":"temp"
+        })
+        var date = $("<h3>").attr({
+            "class":"date"
+        })
+        temp.text("Temp: " + temp5day[i] + "F");
+        date.text(date5day[i]);
+        cardDiv.append(date, temp);
+        fiveDay.append(cardDiv);
+        console.log("its working?");
+
+    }
+
+}
 //Function call outs for testing
 localPull();
 dropPop();
