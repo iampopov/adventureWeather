@@ -95,19 +95,6 @@ function mainPop() {
 
 }
 
-<<<<<<< HEAD
-function renderSavedCities () {
-var savedLocations = $('<div>');
-
-for (i=0; i<localStorage.length; i++) {
-    // var currentArr = JSON.parse(localStorage.getItem(localStorage.key(i)));
-    
-    var renderedLocation = $('<button/>',
-    {
-      id: 'locationBtn',
-      text: localStorage.key(i),
-      value: i
-=======
 function renderSavedCities() {
     var savedLocations = $('<div>');
 
@@ -126,7 +113,6 @@ function renderSavedCities() {
             'height': 'auto'
         })
         renderedLocation.appendTo(savedLocations);
->>>>>>> 42187e3d7a28498c271da56849982a834dd72b5b
     }
     savedLocations.appendTo('#sideDiv');
 }
