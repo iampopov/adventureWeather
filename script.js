@@ -1,15 +1,7 @@
-//Project one js testing arena. Update comments as you go to make it easier to follow
-//or remove if needed.
-
-
 //lets create some variables
-//These variables will last testing
 var savedLocations = ["Winter Park", "Vail", "Copper", "A-Basin"];
 var darkskyApiKey = "d2f367ae26a429b81b3e3148169f1332";
 var openWeatherApiKey = "9bd07f7d4ce4fe8a1ea716aadf106115";
-
-//These variables may or may not last testing
-
 var cityArr = [];
 var latArr = [];
 var lonArr = [];
@@ -25,25 +17,18 @@ var currentWind = 0;
 var temp5day = [];
 var date5day = [];
 
-//location and search buttons
-
-// lets make some functions
-
 //get location - shows search results and assigns the key and the lat/lon pair to store in local storage
 function getLocation(e) {
     e.preventDefault();
     var queryToken = `560c631ddab209`;
     var queryLoc = $('#inputBox').val().trim();
     var queryURL = `https://us1.locationiq.com/v1/search.php?key=${queryToken}&q=${queryLoc}&format=json`
-    console.log($('#inputBox').val());
-    console.log(queryURL);
     $.ajax({
         url: queryURL,
         method: 'GET'
     }).then(function (response) {
         mainDiv.html(" ");
         for (i = 0; i < response.length; i++) {
-
             var queryResult = $('<button/>',
                 {
                     id: 'locationBtn',
@@ -70,8 +55,6 @@ function updateStorage() {
     latCurrent = latArr[$(this).val()];
     lonCurrent = lonArr[$(this).val()];
     pullDarksky();
-
-    // mainPop();
 }
 
 //function to populate main div 
@@ -90,16 +73,12 @@ function mainPop() {
     tempDiv.text(`Current Temp: ${currentTemp} F  Feels Like: ${currentFeelsLikeTemp} F`)
     snowfallDiv.text(`Snowfall: Past 24 hours: ${precipAccAry[0]}" Past 48 hours: ${precipAccAry[0] + precipAccAry[1]}" Past 72 hours: ${precipAccAry[0] + precipAccAry[1] + precipAccAry[2]}"`);
     $("#mainDiv").append(snowfallDiv, tempDiv, windDiv);
-
-
 }
 
 function renderSavedCities() {
     var savedLocations = $('<div>');
-
     for (i = 0; i < localStorage.length; i++) {
         var currentArr = JSON.parse(localStorage.getItem(localStorage.key(i)));
-
         var renderedLocation = $('<button/>',
             {
                 id: 'locationBtn',
@@ -115,20 +94,7 @@ function renderSavedCities() {
     }
     savedLocations.appendTo('#sideDiv');
 }
-// renderSavedCities();
 
-//This function takes location array and uses it to populate the dropdown 
-//this needs changed to create buttons for city options
-function dropPop() {
-    var dropDownMenu = $(".dropPop");
-    dropDownMenu.empty();
-    savedLocations.forEach(function (item) {
-        var newButton = $("<button>").attr({ "data-value": item });
-        newButton.text(item);
-        dropDownMenu.append(newButton);
-
-    })
-}
 
 //This function will be used to pull from local Storage savedLocations array going to need changed to get objects
 function localPull() {
@@ -177,7 +143,6 @@ function pullDarksky() {
         currentWind = response.currently.windSpeed;
         pullDarkskyPast();
         fiveDayPull();
-
     })
 }
 
@@ -185,7 +150,6 @@ function pullDarksky() {
 function pullDarkskyPast() {
     var i = 0;
     dayAry.forEach(function (item) {
-        console.log(item);
         var proxy = "https://cors-anywhere.herokuapp.com/";
         var queryURL = `https://api.darksky.net/forecast/${darkskyApiKey}/${latCurrent},${lonCurrent},${item}`
         $.ajax({
@@ -198,9 +162,6 @@ function pullDarkskyPast() {
                 precipAccAry[i] = 0;
             }
             i++;
-            
-            // mainPop();
-
         })
     })
 
@@ -214,14 +175,13 @@ function fiveDayPull () {
         url: queryURL3,
         method: "GET"
     }).then(function(response){
+        console.log(response);
         for (var i = 0; i < 5; i++){
             temp5day[i] =(((response.list[4+(i*8)].main.temp) - 273.15) * 9 / 5 + 32).toFixed(2);
             var dateTemp = response.list[4+(i*8)].dt_txt;
             dateTemp = dateTemp.split(" ");
             date5day[i] = dateTemp[0];
         }
-        // pop5Day();
-        // console.log(temp5day);
         mainPop();
         pop5Day();
     })
@@ -240,8 +200,6 @@ function pop5Day () {
             "background":"white",
             "padding":"2%",
             "border-radius":"5px",
-
-
         })
         var temp = $("<p>").attr({
             "class":"temp"
@@ -253,15 +211,11 @@ function pop5Day () {
         date.text(date5day[i]);
         cardDiv.append(date, temp);
         fiveDay.append(cardDiv);
-        console.log("its working?");
-
     }
-
 }
 //Function call outs for testing
+renderSavedCities();
 localPull();
-dropPop();
-
 
 //Creating on click events
 
@@ -272,5 +226,3 @@ $('#searchButton').click(getLocation);
 //on click of search buttons pushes lat & lon to dark weather
 $('#mainDiv').on('click', '#locationBtn', updateStorage);
 //This section is for tempoary code tests delete when section is working
-
-//IDs needed newLocation for the button 
