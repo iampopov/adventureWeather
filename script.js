@@ -222,7 +222,7 @@ function pop5Day () {
         var temp = $("<p>").attr({
             "class":"temp"
         })
-        var date = $("<h3>").attr({
+        var date = $("<p>").attr({
             "class":"date"
         })
         temp.text("Temp: " + temp5day[i] + "F");
