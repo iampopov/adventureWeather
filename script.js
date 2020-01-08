@@ -20,6 +20,7 @@ var dayAry = [];
 var latCurrent = 39.8868;
 var lonCurrent = -105.7625;
 var precipAccAry = ["","",""];
+var currentWind = 0;
 
 //location and search buttons
 
@@ -62,21 +63,33 @@ function getLocation(e) {
 function updateStorage() {
     coordinatesArr = [latArr[$(this).val()], lonArr[$(this).val()]];
     localStorage.setItem(cityArr[$(this).val()], JSON.stringify(coordinatesArr));
-    mainPop();
+    latCurrent = latArr[$(this).val()];
+    lonCurrent = lonArr[$(this).val()];
+    pullDarksky();
+    // mainPop();
 }
 
 //function to populate main div 
 function mainPop() {
     $("#mainDiv").empty();
+    $("#mainDiv").css({
+        "background":"white",
+        "border-radius":"5px",
+        "padding":"30px"
+    });
     var snowfallDiv = $("<div>").attr({
         "class": "snowfall"
     })
     var tempDiv = $("<div>").attr({
         "class": "temp"
     })
+    var windDiv = $("<div>").attr({
+        "class": "wind"
+    })
+    windDiv.text(`Wind speed: ${currentWind} mph`);
     tempDiv.text(`Current Temp: ${currentTemp} F  Feels Like: ${currentFeelsLikeTemp} F`)
     snowfallDiv.text(`Snowfall: Past 24 hours: ${precipAccAry[0]}" Past 48 hours: ${precipAccAry[0] + precipAccAry[1]}" Past 72 hours: ${precipAccAry[0] + precipAccAry[1] + precipAccAry[2]}"`);
-    $("#mainDiv").append(snowfallDiv, tempDiv);
+    $("#mainDiv").append(snowfallDiv, tempDiv, windDiv);
 
 
 }
@@ -162,6 +175,9 @@ function pullDarksky() {
         for (var i = 0; i < 3; i++) {
             dayAry[i] = day - ((i + 1) * 86400);
         }
+        currentTemp = response.currently.temperature;
+        currentFeelsLikeTemp = response.currently.apparentTemperature;
+        currentWind = response.currently.windSpeed;
         console.log(day);
         console.log(day - dayAry[2]);
         pullDarkskyPast();
@@ -190,6 +206,7 @@ function pullDarkskyPast() {
             console.log(precipAccAry);
             console.log(i);
             i++;
+            mainPop();
         })
     })
 
@@ -198,7 +215,6 @@ function pullDarkskyPast() {
 //Function call outs for testing
 localPull();
 dropPop();
-pullDarksky();
 
 
 //Creating on click events
