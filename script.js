@@ -83,7 +83,7 @@ function renderSavedCities () {
 var savedLocations = $('<div>');
 
 for (i=0; i<localStorage.length; i++) {
-    var currentArr = JSON.parse(localStorage.getItem(localStorage.key(i)));
+    // var currentArr = JSON.parse(localStorage.getItem(localStorage.key(i)));
     
     var renderedLocation = $('<button/>',
     {

@@ -6,6 +6,8 @@
   color: #984B43;
   text-align: center;
   font-family: 'Oswald', sans-serif;
+  background: #233237 url(./images/gplay.png) repeat 0 0;
+  
 }
 .searchBar{
   margin-right: -20px;
@@ -41,4 +43,12 @@ body {
 #locationBtn{
   background-color: #984B43;
   color: #C09F80;
+}
+#locationBtn:hover{
+  border-color: #C09F80;
+}
+#mainDiv{
+  background: #233237;
+   border-radius: 5px;
+   padding : 30px;
 }
