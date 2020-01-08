@@ -1,8 +1,6 @@
 //lets create some variables
-var savedLocations = ["Winter Park", "Vail", "Copper", "A-Basin"];
 var darkskyApiKey = "d2f367ae26a429b81b3e3148169f1332";
 
-//These variables may or may not last testing
 // Your web app's Firebase configuration
 var firebaseConfig = {
     apiKey: "AIzaSyDK5d6qQRQPZ6uG5T_Ni0LJxZNQDf7lUHo",
@@ -97,20 +95,15 @@ function mainPop() {
 database.ref().on("child_added", function(renderButtons) {
     var savedLocations = $('<div>');
     savedLocations.empty();
-    latCurrent = renderButtons.val().lon;
-    lonCurrent = renderButtons.val().lat;
+    // latCurrent = renderButtons.val().lon;
+    // lonCurrent = renderButtons.val().lat;
     var renderedLocation = $('<button/>',
             {
                 id: 'locationBtn',
-<<<<<<< HEAD
                 text: renderButtons.val().city,
                 "data-lon":renderButtons.val().lon,
                 "data-lat":renderButtons.val().lat
                 //value: i
-=======
-                text: renderButtons.val().city
-                
->>>>>>> 0c759304196c791ce2d9bf8234bc88ab89cd0b1b
             }
         ).css({
             'width': '100%',
@@ -139,18 +132,16 @@ function localPull() {
 function newLocation() {
     var siblingAry = $(this).siblings();
     var newLocation = siblingAry[0].value;
-    savedLocations.push(newLocation);
     siblingAry[0].value = "";
     localPush();
-    dropPop();
     pullDarksky();
 }
 
 //This function will push the savedLocations array to local storage will need changed for objects
-function localPush() {
-    var savedLocationsString = savedLocations.toString();
-    localStorage.setItem("Location-Array", savedLocationsString);
-}
+// function localPush() {
+//     var savedLocationsString = savedLocations.toString();
+//     localStorage.setItem("Location-Array", savedLocationsString);
+// }
 
 //This function will make the ajax callout to pull information from darksky
 function pullDarksky() {
@@ -213,6 +204,13 @@ function fiveDayPull () {
     })
 }
 
+function latlonsaved () {
+    console.log(this)
+    latCurrent = $(this).attr("data-lat");
+    lonCurrent = $(this).attr("data-lon");
+    pullDarksky();
+}
+
 //this function populates the 5 day forecast to the page
 function pop5Day () {
     var fiveDay = $(".fiveDay");
@@ -244,4 +242,4 @@ $("#newLocation").on("click", "button", newLocation);
 $('#searchButton').click(getLocation);
 //on click of search buttons pushes lat & lon to dark weather
 $('#mainDiv').on('click', '#locationBtn', updateStorage);
-//This section is for tempoary code tests delete when section is working
+$("#sideDiv").on('click','button', latlonsaved);
