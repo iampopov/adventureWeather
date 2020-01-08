@@ -6,25 +6,29 @@
   color: #984B43;
   text-align: center;
   font-family: 'Oswald', sans-serif;
+  background: #233237 url(./images/gplay.png) repeat 0 0;
+  
 }
 .searchBar{
   margin-right: -20px;
   margin-top: -30px;
   font-family: 'Oswald', sans-serif;
+  color: #984B43;
 }
 #inputBox[type="text"]{
-  height: 35px;
+  height: 42px;
   border-radius: 4px;
   font-family: 'Oswald', sans-serif;
   border-color: #984B43;
 }
 #searchButton{
-  height: 34px;
+  height: 42px;
   background-color:#233237;
   border-radius: 4px;
   border: black;
   color: #C09F80;
   font-family: 'Oswald', sans-serif;
+  font-size: 18px;
   text-align: center;
 }
 #mountainSearch{
@@ -35,4 +39,16 @@ body {
   background-image: url(./images/snow.jpg);
   background-size: cover;
   background-position: center top;
+}
+#locationBtn{
+  background-color: #984B43;
+  color: #C09F80;
+}
+#locationBtn:hover{
+  border-color: #C09F80;
+}
+#mainDiv{
+  background: #233237;
+   border-radius: 5px;
+   padding : 30px;
 }
