@@ -58,6 +58,7 @@ function getLocation(e) {
             queryResult.appendTo(mainDiv);
         }
     })
+    $("#inputBox").val("");
 }
 // saving clicked search results to local storage
 function updateStorage() {
