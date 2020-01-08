@@ -97,11 +97,13 @@ function mainPop() {
 database.ref().on("child_added", function(renderButtons) {
     var savedLocations = $('<div>');
     savedLocations.empty();
+    latCurrent = renderButtons.val().lon;
+    lonCurrent = renderButtons.val().lat;
     var renderedLocation = $('<button/>',
             {
                 id: 'locationBtn',
-                text: renderButtons.val().city,
-                //value: i
+                text: renderButtons.val().city
+                
             }
         ).css({
             'width': '100%',
