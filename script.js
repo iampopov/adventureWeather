@@ -35,8 +35,6 @@ function getLocation(e) {
     var queryToken = `560c631ddab209`;
     var queryLoc = $('#inputBox').val().trim();
     var queryURL = `https://us1.locationiq.com/v1/search.php?key=${queryToken}&q=${queryLoc}&format=json`
-    console.log($('#inputBox').val());
-    console.log(queryURL);
     $.ajax({
         url: queryURL,
         method: 'GET'
@@ -115,20 +113,7 @@ function renderSavedCities() {
     }
     savedLocations.appendTo('#sideDiv');
 }
-// renderSavedCities();
 
-//This function takes location array and uses it to populate the dropdown 
-//this needs changed to create buttons for city options
-function dropPop() {
-    var dropDownMenu = $(".dropPop");
-    dropDownMenu.empty();
-    savedLocations.forEach(function (item) {
-        var newButton = $("<button>").attr({ "data-value": item });
-        newButton.text(item);
-        dropDownMenu.append(newButton);
-
-    })
-}
 
 //This function will be used to pull from local Storage savedLocations array going to need changed to get objects
 function localPull() {
@@ -185,7 +170,6 @@ function pullDarksky() {
 function pullDarkskyPast() {
     var i = 0;
     dayAry.forEach(function (item) {
-        console.log(item);
         var proxy = "https://cors-anywhere.herokuapp.com/";
         var queryURL = `https://api.darksky.net/forecast/${darkskyApiKey}/${latCurrent},${lonCurrent},${item}`
         $.ajax({
@@ -214,6 +198,7 @@ function fiveDayPull () {
         url: queryURL3,
         method: "GET"
     }).then(function(response){
+        console.log(response);
         for (var i = 0; i < 5; i++){
             temp5day[i] =(((response.list[4+(i*8)].main.temp) - 273.15) * 9 / 5 + 32).toFixed(2);
             var dateTemp = response.list[4+(i*8)].dt_txt;
@@ -253,14 +238,14 @@ function pop5Day () {
         date.text(date5day[i]);
         cardDiv.append(date, temp);
         fiveDay.append(cardDiv);
-        console.log("its working?");
 
     }
 
 }
 //Function call outs for testing
+renderSavedCities();
 localPull();
-dropPop();
+
 
 
 //Creating on click events
