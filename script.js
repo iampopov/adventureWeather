@@ -73,11 +73,6 @@ function updateStorage() {
 //function to populate main div 
 function mainPop() {
     $("#mainDiv").empty();
-    $("#mainDiv").css({
-        "background":"white",
-        "border-radius":"5px",
-        "padding":"30px"
-    });
     var snowfallDiv = $("<div>").attr({
         "class": "snowfall"
     })
