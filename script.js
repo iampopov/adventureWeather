@@ -8,7 +8,20 @@ var savedLocations = ["Winter Park", "Vail", "Copper", "A-Basin"];
 var darkskyApiKey = "d2f367ae26a429b81b3e3148169f1332";
 
 //These variables may or may not last testing
-
+// Your web app's Firebase configuration
+var firebaseConfig = {
+    apiKey: "AIzaSyDK5d6qQRQPZ6uG5T_Ni0LJxZNQDf7lUHo",
+    authDomain: "coadventureweather.firebaseapp.com",
+    databaseURL: "https://coadventureweather.firebaseio.com",
+    projectId: "coadventureweather",
+    storageBucket: "coadventureweather.appspot.com",
+    messagingSenderId: "966609177439",
+    appId: "1:966609177439:web:f8c045894c37239e6804ea",
+    measurementId: "G-DETTQJRNH6"
+};
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+var database = firebase.database();
 var cityArr = [];
 var latArr = [];
 var lonArr = [];
@@ -60,12 +73,19 @@ function getLocation(e) {
     })
     $("#inputBox").val("");
 }
+
 // saving clicked search results to local storage
 function updateStorage() {
     coordinatesArr = [latArr[$(this).val()], lonArr[$(this).val()]];
     localStorage.setItem(cityArr[$(this).val()], JSON.stringify(coordinatesArr));
     latCurrent = latArr[$(this).val()];
     lonCurrent = lonArr[$(this).val()];
+    //saving data to fireBase
+    database.ref().push({
+        city: cityArr[$(this).val()],
+        lat: latArr[$(this).val()],
+        lon: lonArr[$(this).val()]
+    })
     pullDarksky();
     // mainPop();
 }
@@ -95,19 +115,26 @@ function mainPop() {
 
 }
 
-<<<<<<< HEAD
-function renderSavedCities () {
-var savedLocations = $('<div>');
-
-for (i=0; i<localStorage.length; i++) {
-    // var currentArr = JSON.parse(localStorage.getItem(localStorage.key(i)));
-    
+database.ref().on("child_added", function(renderButtons) {
+    //console.log(renderButtons.val().city);
+    var savedLocations = $('<div>');
+    savedLocations.empty();
     var renderedLocation = $('<button/>',
-    {
-      id: 'locationBtn',
-      text: localStorage.key(i),
-      value: i
-=======
+            {
+                id: 'locationBtn',
+                text: renderButtons.val().city,
+                //value: i
+            }
+        ).css({
+            'width': '100%',
+            'white-space': 'normal',
+            'height': 'auto'
+        })
+        renderedLocation.appendTo(savedLocations);
+        savedLocations.appendTo('#sideDiv');
+})
+
+
 function renderSavedCities() {
     var savedLocations = $('<div>');
 
@@ -126,7 +153,6 @@ function renderSavedCities() {
             'height': 'auto'
         })
         renderedLocation.appendTo(savedLocations);
->>>>>>> 42187e3d7a28498c271da56849982a834dd72b5b
     }
     savedLocations.appendTo('#sideDiv');
 }
