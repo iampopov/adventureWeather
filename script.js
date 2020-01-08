@@ -1,15 +1,7 @@
-//Project one js testing arena. Update comments as you go to make it easier to follow
-//or remove if needed.
-
-
 //lets create some variables
-//These variables will last testing
 var savedLocations = ["Winter Park", "Vail", "Copper", "A-Basin"];
 var darkskyApiKey = "d2f367ae26a429b81b3e3148169f1332";
 var openWeatherApiKey = "9bd07f7d4ce4fe8a1ea716aadf106115";
-
-//These variables may or may not last testing
-
 var cityArr = [];
 var latArr = [];
 var lonArr = [];
@@ -25,10 +17,6 @@ var currentWind = 0;
 var temp5day = [];
 var date5day = [];
 
-//location and search buttons
-
-// lets make some functions
-
 //get location - shows search results and assigns the key and the lat/lon pair to store in local storage
 function getLocation(e) {
     e.preventDefault();
@@ -41,7 +29,6 @@ function getLocation(e) {
     }).then(function (response) {
         mainDiv.html(" ");
         for (i = 0; i < response.length; i++) {
-
             var queryResult = $('<button/>',
                 {
                     id: 'locationBtn',
@@ -68,8 +55,6 @@ function updateStorage() {
     latCurrent = latArr[$(this).val()];
     lonCurrent = lonArr[$(this).val()];
     pullDarksky();
-
-    // mainPop();
 }
 
 //function to populate main div 
@@ -88,16 +73,12 @@ function mainPop() {
     tempDiv.text(`Current Temp: ${currentTemp} F  Feels Like: ${currentFeelsLikeTemp} F`)
     snowfallDiv.text(`Snowfall: Past 24 hours: ${precipAccAry[0]}" Past 48 hours: ${precipAccAry[0] + precipAccAry[1]}" Past 72 hours: ${precipAccAry[0] + precipAccAry[1] + precipAccAry[2]}"`);
     $("#mainDiv").append(snowfallDiv, tempDiv, windDiv);
-
-
 }
 
 function renderSavedCities() {
     var savedLocations = $('<div>');
-
     for (i = 0; i < localStorage.length; i++) {
         var currentArr = JSON.parse(localStorage.getItem(localStorage.key(i)));
-
         var renderedLocation = $('<button/>',
             {
                 id: 'locationBtn',
@@ -162,7 +143,6 @@ function pullDarksky() {
         currentWind = response.currently.windSpeed;
         pullDarkskyPast();
         fiveDayPull();
-
     })
 }
 
@@ -182,9 +162,6 @@ function pullDarkskyPast() {
                 precipAccAry[i] = 0;
             }
             i++;
-            
-            // mainPop();
-
         })
     })
 
@@ -205,8 +182,6 @@ function fiveDayPull () {
             dateTemp = dateTemp.split(" ");
             date5day[i] = dateTemp[0];
         }
-        // pop5Day();
-        // console.log(temp5day);
         mainPop();
         pop5Day();
     })
@@ -225,8 +200,6 @@ function pop5Day () {
             "background":"white",
             "padding":"2%",
             "border-radius":"5px",
-
-
         })
         var temp = $("<p>").attr({
             "class":"temp"
@@ -238,15 +211,11 @@ function pop5Day () {
         date.text(date5day[i]);
         cardDiv.append(date, temp);
         fiveDay.append(cardDiv);
-
     }
-
 }
 //Function call outs for testing
 renderSavedCities();
 localPull();
-
-
 
 //Creating on click events
 
@@ -257,5 +226,3 @@ $('#searchButton').click(getLocation);
 //on click of search buttons pushes lat & lon to dark weather
 $('#mainDiv').on('click', '#locationBtn', updateStorage);
 //This section is for tempoary code tests delete when section is working
-
-//IDs needed newLocation for the button 
