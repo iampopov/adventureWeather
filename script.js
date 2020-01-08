@@ -102,15 +102,10 @@ database.ref().on("child_added", function(renderButtons) {
     var renderedLocation = $('<button/>',
             {
                 id: 'locationBtn',
-<<<<<<< HEAD
                 text: renderButtons.val().city,
                 "data-lon":renderButtons.val().lon,
                 "data-lat":renderButtons.val().lat
                 //value: i
-=======
-                text: renderButtons.val().city
-                
->>>>>>> 0c759304196c791ce2d9bf8234bc88ab89cd0b1b
             }
         ).css({
             'width': '100%',
@@ -224,7 +219,7 @@ function pop5Day () {
         var temp = $("<p>").attr({
             "class":"temp"
         })
-        var date = $("<h3>").attr({
+        var date = $("<p>").attr({
             "class":"date"
         })
         temp.text("Temp: " + temp5day[i] + "F");

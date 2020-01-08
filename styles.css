@@ -52,3 +52,25 @@ body {
    border-radius: 5px;
    padding : 30px;
 }
+.cardDiv{
+  background-color: #C09F80;
+  display: inline-block;
+  margin-right: 5px;
+  float: left;
+  color: #984B43;
+  font-weight: bold;
+  font-family: 'Oswald', sans-serif;
+  border-radius: 4px;
+  border-color: #984B43;
+  margin-left: -54px;
+  margin-right: 85px;
+  margin-top: -50px;
+  width: 100px;
+}
+
+.fiveDay{
+  float: left;
+  position: fixed;
+  top: 0;
+  margin-top: 270px
+}
