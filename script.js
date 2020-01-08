@@ -101,6 +101,8 @@ database.ref().on("child_added", function(renderButtons) {
             {
                 id: 'locationBtn',
                 text: renderButtons.val().city,
+                "data-lon":renderButtons.val().lon,
+                "data-lat":renderButtons.val().lat
                 //value: i
             }
         ).css({
