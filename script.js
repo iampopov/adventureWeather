@@ -67,10 +67,6 @@ function getLocation(e) {
 
 // saving clicked search results to local storage
 function updateStorage() {
-    coordinatesArr = [latArr[$(this).val()], lonArr[$(this).val()]];
-    localStorage.setItem(cityArr[$(this).val()], JSON.stringify(coordinatesArr));
-    latCurrent = latArr[$(this).val()];
-    lonCurrent = lonArr[$(this).val()];
     //saving data to fireBase
     database.ref().push({
         city: cityArr[$(this).val()],
@@ -99,7 +95,6 @@ function mainPop() {
 }
 
 database.ref().on("child_added", function(renderButtons) {
-    //console.log(renderButtons.val().city);
     var savedLocations = $('<div>');
     savedLocations.empty();
     var renderedLocation = $('<button/>',
@@ -116,27 +111,6 @@ database.ref().on("child_added", function(renderButtons) {
         renderedLocation.appendTo(savedLocations);
         savedLocations.appendTo('#sideDiv');
 })
-
-
-function renderSavedCities() {
-    var savedLocations = $('<div>');
-    for (i = 0; i < localStorage.length; i++) {
-        var currentArr = JSON.parse(localStorage.getItem(localStorage.key(i)));
-        var renderedLocation = $('<button/>',
-            {
-                id: 'locationBtn',
-                text: localStorage.key(i),
-                value: i
-            }
-        ).css({
-            'width': '100%',
-            'white-space': 'normal',
-            'height': 'auto'
-        })
-        renderedLocation.appendTo(savedLocations);
-    }
-    savedLocations.appendTo('#sideDiv');
-}
 
 
 //This function will be used to pull from local Storage savedLocations array going to need changed to get objects
@@ -251,7 +225,6 @@ function pop5Day () {
     }
 }
 //Function call outs for testing
-renderSavedCities();
 localPull();
 
 //Creating on click events
