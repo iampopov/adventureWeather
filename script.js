@@ -26,11 +26,33 @@ var day = 0;
 var dayAry = [];
 var latCurrent = 39.8868;
 var lonCurrent = -105.7625;
+var placeCurrent = '';
 var precipAccAry = ["","",""];
 var currentWind = 0;
 var temp5day = [];
 var date5day = [];
 
+function getBrowserLocation () {
+    navigator.geolocation.getCurrentPosition(function(position) {
+        latCurrent = position.coords.latitude;
+        lonCurrent = position.coords.longitude;
+        pullDarksky();
+
+        function getCityLoc () {
+            var queryToken = `560c631ddab209`;
+            var queryURL = `https://us1.locationiq.com/v1/reverse.php?key=${queryToken}&lat=${latCurrent}&lon=${lonCurrent}&format=json`
+            
+            $.ajax({
+                url: queryURL,
+                method: 'GET'
+            }).then(function(response) {
+                placeCurrent = response.display_name;
+            })
+        }
+        getCityLoc();
+    });
+  };
+getBrowserLocation();
 //get location - shows search results and assigns the key and the lat/lon pair to store in local storage
 function getLocation(e) {
     e.preventDefault();
@@ -65,12 +87,19 @@ function getLocation(e) {
 
 // saving clicked search results to local storage
 function updateStorage() {
-    //saving data to fireBase
-    database.ref().push({
+    // preventing duplicates to be saved in a local storage
+    database.ref().orderByChild("city").equalTo($(this).text()).once("value", snapshot => {
+    if (snapshot.exists()){
+
+    } else {
+        //saving data to fireBase
+        database.ref().push({
         city: cityArr[$(this).val()],
         lat: latArr[$(this).val()],
         lon: lonArr[$(this).val()]
     })
+    }
+});
     pullDarksky();
 }
 
@@ -86,10 +115,14 @@ function mainPop() {
     var windDiv = $("<div>").attr({
         "class": "wind"
     })
+    var curLoc = $("<div>").attr({
+        "class": "curLoc"
+    })
+    curLoc.text(placeCurrent);
     windDiv.text(`Wind speed: ${currentWind} mph`);
     tempDiv.text(`Current Temp: ${currentTemp} F  Feels Like: ${currentFeelsLikeTemp} F`)
     snowfallDiv.text(`Snowfall: Past 24 hours: ${precipAccAry[0]}" Past 48 hours: ${precipAccAry[0] + precipAccAry[1]}" Past 72 hours: ${precipAccAry[0] + precipAccAry[1] + precipAccAry[2]}"`);
-    $("#mainDiv").append(snowfallDiv, tempDiv, windDiv);
+    $("#mainDiv").append(curLoc, snowfallDiv, tempDiv, windDiv);
 }
 
 database.ref().on("child_added", function(renderButtons) {
@@ -115,15 +148,6 @@ database.ref().on("child_added", function(renderButtons) {
 })
 
 
-//This function will be used to pull from local Storage savedLocations array going to need changed to get objects
-function localPull() {
-    var pulledStorage = localStorage.getItem("Location-Array");
-    if (pulledStorage === null) {
-        savedLocations = [];
-    } else {
-        savedLocations = pulledStorage.split(",");
-    }
-}
 
 //This function will add a new location to the list of savedLocations.
 //Will need other function call outs added to this function later to 
@@ -151,6 +175,7 @@ function pullDarksky() {
         url: proxy + queryURL,
         method: "GET"
     }).then(function (response) {
+        //console.log(response)
         day = response.currently.time;
         for (var i = 0; i < 3; i++) {
             dayAry[i] = day - ((i + 1) * 86400);
@@ -192,7 +217,7 @@ function fiveDayPull () {
         url: queryURL3,
         method: "GET"
     }).then(function(response){
-        console.log(response);
+        //console.log(response);
         for (var i = 0; i < 5; i++){
             temp5day[i] =(((response.list[4+(i*8)].main.temp) - 273.15) * 9 / 5 + 32).toFixed(2);
             var dateTemp = response.list[4+(i*8)].dt_txt;
@@ -232,7 +257,6 @@ function pop5Day () {
     }
 }
 //Function call outs for testing
-localPull();
 
 //Creating on click events
 
