@@ -56,6 +56,7 @@ getBrowserLocation();
 //get location - shows search results and assigns the key and the lat/lon pair to store in local storage
 function getLocation(e) {
     e.preventDefault();
+    $(".fiveDay").empty();
     var queryToken = `560c631ddab209`;
     var queryLoc = $('#inputBox').val().trim();
     var queryURL = `https://us1.locationiq.com/v1/search.php?key=${queryToken}&q=${queryLoc}&format=json`
@@ -245,7 +246,6 @@ function latlonsaved () {
     latCurrent = $(this).attr("data-lat");
     lonCurrent = $(this).attr("data-lon");
     placeCurrent = $(this).attr("data-location-name");
-    console.log(placeCurrent);
     pullDarksky();
 }
 
