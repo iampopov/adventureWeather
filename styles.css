@@ -47,30 +47,37 @@ body {
 #locationBtn:hover{
   border-color: #C09F80;
 }
-#mainDiv{
+#mainDiv {
   background: #233237;
    border-radius: 5px;
    padding : 30px;
 }
+.mainMain {
+  background: #233237;
+  padding : 10px;
+}
+
 .cardDiv{
   background-color: #C09F80;
   display: inline-block;
   margin-right: 5px;
-  float: left;
+  /* float: left; */
   color: #984B43;
   font-weight: bold;
   font-family: 'Oswald', sans-serif;
   border-radius: 4px;
   border-color: #984B43;
-  margin-left: -54px;
+  /* margin-left: -54px;
   margin-right: 85px;
-  margin-top: -50px;
+  margin-top: -50px; */
+  margin: 10px;
   width: 100px;
 }
 
 .fiveDay{
   float: left;
-  position: fixed;
+  /* position: fixed; */
   top: 0;
-  margin-top: 270px
+  /* margin-top: 270px */
+  margin-left: 5px;
 }
