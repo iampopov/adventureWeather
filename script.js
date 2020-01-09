@@ -224,7 +224,7 @@ function pullDarkskyPast() {
 
 //this function will make an ajax call to open weather for a 5 day forcast
 function fiveDayPull () {
-    var queryURL3 = `http://api.openweathermap.org/data/2.5/forecast?lat=${latCurrent}&lon=${lonCurrent}&appid=${openWeatherApiKey}`;
+    var queryURL3 = `https://api.openweathermap.org/data/2.5/forecast?lat=${latCurrent}&lon=${lonCurrent}&appid=${openWeatherApiKey}`;
     $.ajax({
         url: queryURL3,
         method: "GET"
