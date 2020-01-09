@@ -119,10 +119,11 @@ function mainPop() {
         "class": "curLoc"
     })
     curLoc.text(placeCurrent);
-    windDiv.text(`Wind speed: ${currentWind} mph`);
-    tempDiv.text(`Current Temp: ${currentTemp} F  Feels Like: ${currentFeelsLikeTemp} F`)
-    snowfallDiv.text(`Snowfall: Past 24 hours: ${precipAccAry[0]}" Past 48 hours: ${precipAccAry[0] + precipAccAry[1]}" Past 72 hours: ${precipAccAry[0] + precipAccAry[1] + precipAccAry[2]}"`);
+    windDiv.html(`<strong>Wind speed:</strong> ${currentWind} mph`);
+    tempDiv.html(`<strong>Current Temp:</strong> ${currentTemp} F  Feels Like: ${currentFeelsLikeTemp} F`)
+    snowfallDiv.html(`<strong>Snowfall:</strong> Past 24 hours: ${precipAccAry[0]}" Past 48 hours: ${precipAccAry[0] + precipAccAry[1]}" Past 72 hours: ${precipAccAry[0] + precipAccAry[1] + precipAccAry[2]}"`);
     $("#mainDiv").append(curLoc, snowfallDiv, tempDiv, windDiv);
+    placeCurrent = "";
 }
 
 database.ref().on("child_added", function(renderButtons) {
@@ -135,7 +136,8 @@ database.ref().on("child_added", function(renderButtons) {
                 id: 'locationBtn',
                 text: renderButtons.val().city,
                 "data-lon":renderButtons.val().lon,
-                "data-lat":renderButtons.val().lat
+                "data-lat":renderButtons.val().lat,
+                "data-location-name": renderButtons.val().city
                 //value: i
             }
         ).css({
@@ -239,9 +241,11 @@ function fiveDayPull () {
 }
 
 function latlonsaved () {
-    console.log(this)
+    // console.log(this)
     latCurrent = $(this).attr("data-lat");
     lonCurrent = $(this).attr("data-lon");
+    placeCurrent = $(this).attr("data-location-name");
+    console.log(placeCurrent);
     pullDarksky();
 }
 
