@@ -21,30 +21,32 @@
             Adventure Weather</h1>
             
             <div class="container" id="container">
-                
-                <div class="two-thirds column" id="mainDiv">
-                    <p>Welcome</p>
-                    
+                <div class="row">
+                <div class="two-thirds column mainMain">
+                <div id="mainDiv">
+                <p>Welcome</p>
                 </div>
-            <div class="two-thirds column fiveDay"></div>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-            <!-- The core Firebase JS SDK is always required and must be listed first -->
-
-            <div id="sideDiv" class="one-third column">
-                <form>
-
-                    <div class="searchBar">
-                        <h2 id="mountainSearch">Search Mountain</h2>
-                        <form action="/action_page.php">
-                            <input type="text" id="inputBox" placeholder="Search.." name="search">
-                            <input id="searchButton" class="button-primary" type="button" value="Search">
-                        </form>
-                    </div>
-                </form>
+                <div class="fiveDay"></div>
+                </div>
+                <div id="sideDiv" class="one-third column">
+                    <form>
+                        
+                        <div class="searchBar">
+                            <h2 id="mountainSearch">Search Mountain</h2>
+                            <form action="/action_page.php">
+                                <input type="text" id="inputBox" placeholder="Search.." name="search">
+                                <input id="searchButton" class="button-primary" type="button" value="Search">
+                            </form>
+                        </div>
+                    </form>
+                </div>
             </div>
-
+            
+            
+            
         </div>
     </div>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-database.js"></script>
