@@ -116,14 +116,14 @@ database.ref().on("child_added", function(renderButtons) {
 
 
 //This function will be used to pull from local Storage savedLocations array going to need changed to get objects
-function localPull() {
-    var pulledStorage = localStorage.getItem("Location-Array");
-    if (pulledStorage === null) {
-        savedLocations = [];
-    } else {
-        savedLocations = pulledStorage.split(",");
-    }
-}
+// function localPull() {
+//     var pulledStorage = localStorage.getItem("Location-Array");
+//     if (pulledStorage === null) {
+//         savedLocations = [];
+//     } else {
+//         savedLocations = pulledStorage.split(",");
+//     }
+// }
 
 //This function will add a new location to the list of savedLocations.
 //Will need other function call outs added to this function later to 
@@ -232,7 +232,7 @@ function pop5Day () {
     }
 }
 //Function call outs for testing
-localPull();
+// localPull();
 
 //Creating on click events
 
