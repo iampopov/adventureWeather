@@ -7,7 +7,10 @@
   text-align: center;
   font-family: 'Oswald', sans-serif;
   background: #233237 url(./images/gplay.png) repeat 0 0;
-  
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  padding-bottom: 15px;
 }
 .searchBar{
   margin-right: -20px;
@@ -49,10 +52,14 @@ body {
 }
 #mainDiv {
   background: #233237;
-   border-radius: 5px;
    padding : 30px;
-}
-.mainMain {
+   font-family: 'Oswald', sans-serif;
+   color: #984B43;
+   text-align: center;
+   border-radius: 4px;
+  }
+  .mainMain {
+  margin-top: 3%;
   background: #233237;
   padding : 10px;
 }
@@ -81,3 +88,22 @@ body {
   /* margin-top: 270px */
   margin-left: 5px;
 }
+.footer{
+  width: 100%;
+  height: 40px;
+  position: sticky;
+  bottom: 0;
+  margin-bottom: 0;
+  background: #233237 url(./images/gplay.png) repeat 0 0;
+  }
+ #container{
+  height: auto;
+  min-height: 100vh;
+  margin-bottom: 0;
+ }
+ p{
+  margin-bottom: 0;
+ }
+ .wrapper{
+  position: relative;
+ }
